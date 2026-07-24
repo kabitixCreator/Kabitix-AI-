@@ -1,41 +1,44 @@
-from flask import Flask, request, jsonify
+import streamlit as st
 import requests
-import os
 
-app = Flask(__name__)
+st.set_page_config(page_title="Kabitix AI", page_icon="🤖", layout="wide")
 
-HF_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-HF_TOKEN = os.environ.get("HF_TOKEN")
+st.title("🤖 Kabitix AI")
+st.write("Welcome to Kabitix AI!")
 
-@app.route("/")
-def home():
-    return "✅ Kabitix AI Backend is Running!"
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.get_json()
-    prompt = data.get("message", "")
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-    headers = {
-        "Authorization": f"Bearer {HF_TOKEN}"
-    }
+def get_ai_response(prompt):
+    try:
+        response = requests.post(
+            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+            json={"inputs": prompt},
+            timeout=30
+        )
 
-    payload = {
-        "inputs": prompt
-    }
-
-    response = requests.post(HF_API_URL, headers=headers, json=payload)
-
-    if response.status_code == 200:
-        result = response.json()
-        if isinstance(result, list):
-            reply = result[0].get("generated_text", "No response")
+        if response.status_code == 200:
+            result = response.json()
+            if isinstance(result, list):
+                return result[0]["generated_text"]
+            return str(result)
         else:
-            reply = str(result)
-        return jsonify({"reply": reply})
+            return f"Error: {response.status_code}"
+    except Exception:
+        return "Sorry, I couldn't connect to the AI."
 
-    return jsonify({"reply": "Error connecting to AI."})
+if prompt := st.chat_input("Message Kabitix..."):
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        reply = get_ai_response(prompt)
+        st.markdown(reply)
+
+    st.session_state.messages.append({"role": "assistant", "content": reply})
