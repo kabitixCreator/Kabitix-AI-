@@ -23,3 +23,4 @@ def get_ai_response(prompt):
 
     except Exception as e:
         return f"Error: {e}"
+        
