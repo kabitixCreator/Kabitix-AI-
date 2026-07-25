@@ -80,7 +80,7 @@ def get_ai_response(prompt):
     except Exception as e:
         return f"Error: {e}"
 
-if prompt := st.chat_input("Message Kabitix..."):
+    if prompt := st.chat_input("💬 Ask anything..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.chat_message("user"):
