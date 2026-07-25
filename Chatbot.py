@@ -1,4 +1,3 @@
-
 from groq import Groq
 import os
 
@@ -22,5 +21,5 @@ def get_ai_response(prompt):
 
         return response.choices[0].message.content
 
-    except Exception as e:
-        return f"Error: {e}"
+    except Exception a
+    
