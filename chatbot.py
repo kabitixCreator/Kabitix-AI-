@@ -21,5 +21,6 @@ def get_ai_response(prompt):
 
         return response.choices[0].message.content
 
-    except Exception a
+    except Exception as e:
+    return f"Error: {e}"
     
