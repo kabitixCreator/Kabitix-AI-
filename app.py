@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
-
+from groq import Groq
+import os
 st.set_page_config(page_title="Kabitix AI", page_icon="🤖", layout="wide")
 
 st.title("🤖 Kabitix AI")
@@ -13,23 +14,28 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 def get_ai_response(prompt):
     try:
-        response = requests.post(
-            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
-            json={"inputs": prompt},
-            timeout=30
+        chat_completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are Kabitix AI, a helpful, intelligent, and friendly AI assistant."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
         )
 
-        if response.status_code == 200:
-            result = response.json()
-            if isinstance(result, list):
-                return result[0]["generated_text"]
-            return str(result)
-        else:
-            return f"Error: {response.status_code}"
-    except Exception:
-        return "Sorry, I couldn't connect to the AI."
+        return chat_completion.choices[0].message.content
+
+    except Exception as e:
+        return f"Error: {e}"
 
 if prompt := st.chat_input("Message Kabitix..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
