@@ -1,7 +1,11 @@
 import streamlit as st
 from groq import Groq
 import os
-
+from chatbot import get_ai_response
+from ebook import ebook_page
+from translator import translator_page
+from settings import settings_page
+from utils import apply_theme
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -28,7 +32,24 @@ st.markdown("<h1>🤖 Kabitix AI</h1>", unsafe_allow_html=True)
 st.markdown("<p>How can I help you today?</p>", unsafe_allow_html=True)
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+page = st.sidebar.radio(
+    "📂 Menu",
+    ["🤖 Chat", "📚 eBook Creator", "🌍 Translator", "⚙️ Settings"]
+)
 
+apply_theme()
+
+if page == "📚 eBook Creator":
+    ebook_page()
+    st.stop()
+
+elif page == "🌍 Translator":
+    translator_page()
+    st.stop()
+
+elif page == "⚙️ Settings":
+    settings_page()
+    st.stop() 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
