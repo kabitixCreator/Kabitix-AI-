@@ -32,6 +32,19 @@ st.markdown("<h1>🤖 Kabitix AI</h1>", unsafe_allow_html=True)
 st.markdown("<p>How can I help you today?</p>", unsafe_allow_html=True)
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+st.sidebar.title("🤖 KTIX") 
+if st.sidebar.button("➕ New Chat"):
+    if st.session_state.messages:
+        st.session_state.history.append(st.session_state.messages.copy())
+    st.session_state.messages = []
+    st.rerun() 
+ with st.sidebar.expander("📜 History", expanded=True):
+    for i, chat in enumerate(st.session_state.history):
+        title = chat[0]["content"][:20] + "..." if chat else f"Chat {i+1}"
+
+        if st.button(f"💬 {title}", key=f"history_{i}"):
+            st.session_state.messages = chat
+            st.rerun() 
 page = st.sidebar.radio(
     "📂 Menu",
     ["🤖 Chat", "📚 eBook Creator", "🌍 Translator", "⚙️ Settings"]
@@ -52,6 +65,9 @@ elif page == "⚙️ Settings":
     st.stop() 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+if "history" not in st.session_state:
+    st.session_state.history = [] 
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -75,7 +91,13 @@ def get_ai_response(prompt):
         return response.choices[0].message.content
     except Exception as e:
         return f"Error: {e}"
+uploaded_image = st.file_uploader(
+    "📷 Upload an image",
+    type=["png", "jpg", "jpeg"]
+)
 
+if uploaded_image:
+    st.image(uploaded_image, caption="Uploaded Image", use_container_width=True)
 prompt = st.chat_input("💬 Ask anything...")
 
 if prompt:
@@ -85,14 +107,15 @@ if prompt:
     })
 
     with st.chat_message("user"):
-        st.markdown(prompt)
+    st.markdown(prompt)
 
-    reply = get_ai_response(prompt)
+with st.chat_message("assistant"):
+    with st.spinner("🤖 Kabitix is thinking..."):
+        reply = get_ai_response(prompt)
+    st.markdown(reply)
+    st.code(reply, language=None) 
 
-    with st.chat_message("assistant"):
-        st.markdown(reply)
-
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": reply
-    })
+st.session_state.messages.append({
+    "role": "assistant",
+    "content": reply
+}) 
