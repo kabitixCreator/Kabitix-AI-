@@ -1,5 +1,4 @@
 import streamlit as st
-import requests
 from groq import Groq
 import os
 st.set_page_config(page_title="Kabitix AI", page_icon="🤖", layout="wide")
