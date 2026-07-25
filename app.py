@@ -3,6 +3,7 @@ from groq import Groq
 import os
 from chatbot import get_ai_response
 from ebook import ebook_page
+from study import study_page
 from translator import translator_page
 from settings import settings_page
 from utils import apply_theme
@@ -47,18 +48,25 @@ if st.sidebar.button("➕ New Chat"):
             st.rerun() 
 page = st.sidebar.radio(
     "📂 Menu",
-    ["🤖 Chat", "📚 eBook Creator", "🌍 Translator", "⚙️ Settings"]
-)
+    [
+        "🤖 Chat",
+        "📚 AI Study",
+        "📚 eBook Creator",
+        "🌍 Translator",
+        "⚙️ Settings"
+    ]
+) 
 
 apply_theme()
-
+elif page == "📚 AI Study":
+    study_page() 
 if page == "📚 eBook Creator":
     ebook_page()
     st.stop()
 
 elif page == "🌍 Translator":
     translator_page()
-    st.stop()
+    st.stop() 
 
 elif page == "⚙️ Settings":
     settings_page()
