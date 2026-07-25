@@ -5,37 +5,29 @@ import os
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
-    layout="centered",
-    initial_sidebar_state="collapsed"
+    layout="centered"
 )
 
 st.markdown("""
 <style>
 .stApp{
-    background: linear-gradient(180deg,#0B0F19,#111827);
+    background:#0B0F19;
 }
-
-.main-title{
-    font-size:52px;
-    font-weight:800;
-    text-align:center;
+h1{
     color:white;
-    margin-top:15px;
-}
-
-.subtitle{
     text-align:center;
+}
+p{
     color:#A5B4FC;
-    font-size:18px;
-    margin-bottom:25px;
+    text-align:center;
 }
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="main-title">🤖 Kabitix AI</div>
-<div class="subtitle">How can I help you today?</div>
-""", unsafe_allow_html=True)
+st.markdown("<h1>🤖 Kabitix AI</h1>", unsafe_allow_html=True)
+st.markdown("<p>How can I help you today?</p>", unsafe_allow_html=True)
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -44,16 +36,14 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
 def get_ai_response(prompt):
     try:
-        chat_completion = client.chat.completions.create(
+        response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
                 {
                     "role": "system",
-                    "content": "You are Kabitix AI, a helpful, intelligent, and friendly AI assistant."
+                    "content": "You are Kabitix AI, a helpful and friendly AI assistant."
                 },
                 {
                     "role": "user",
@@ -61,19 +51,27 @@ def get_ai_response(prompt):
                 }
             ]
         )
-        return chat_completion.choices[0].message.content
-
+        return response.choices[0].message.content
     except Exception as e:
         return f"Error: {e}"
 
-if prompt := st.chat_input("💬 Ask anything..."):
-    st.session_state.messages.append({"role": "user", "content": prompt})
+prompt = st.chat_input("💬 Ask anything...")
+
+if prompt:
+    st.session_state.messages.append({
+        "role": "user",
+        "content": prompt
+    })
 
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    reply = get_ai_response(prompt)
+
     with st.chat_message("assistant"):
-        reply = get_ai_response(prompt)
         st.markdown(reply)
 
-    st.session_state.messages.append({"role": "assistant", "content": reply})
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": reply
+    })
