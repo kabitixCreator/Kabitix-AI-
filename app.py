@@ -96,3 +96,12 @@ def get_ai_response(prompt):
         st.markdown(reply)
 
     st.session_state.messages.append({"role": "assistant", "content": reply})
+
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        reply = get_ai_response(prompt)
+        st.markdown(reply)
+
+    st.session_state.messages.append({"role": "assistant", "content": reply})
