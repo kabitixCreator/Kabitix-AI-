@@ -1,32 +1,14 @@
 import streamlit as st
 from groq import Groq
 import os
+
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
-st.markdown("""
-<style>
-.main-title{
-    font-size:48px;
-    font-weight:800;
-    text-align:center;
-    color:white;
-    margin-top:20px;
-}
-.subtitle{
-    text-align:center;
-    color:#B3B3B3;
-    font-size:18px;
-    margin-bottom:30px;
-}
-</style>
 
-<div class="main-title">🤖 Kabitix AI</div>
-<div class="subtitle">How can I help you today?</div>
-""", unsafe_allow_html=True)
 st.markdown("""
 <style>
 .stApp{
@@ -47,13 +29,13 @@ st.markdown("""
     font-size:18px;
     margin-bottom:25px;
 }
-
-.stChatInput{
-    border-radius:20px;
-}
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<div class="main-title">🤖 Kabitix AI</div>
+<div class="subtitle">How can I help you today?</div>
+""", unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -79,23 +61,13 @@ def get_ai_response(prompt):
                 }
             ]
         )
-
         return chat_completion.choices[0].message.content
 
     except Exception as e:
         return f"Error: {e}"
 
-    if prompt := st.chat_input("💬 Ask anything..."):
+if prompt := st.chat_input("💬 Ask anything..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
-
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant"):
-        reply = get_ai_response(prompt)
-        st.markdown(reply)
-
-    st.session_state.messages.append({"role": "assistant", "content": reply})
 
     with st.chat_message("user"):
         st.markdown(prompt)
