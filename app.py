@@ -2,9 +2,34 @@ import streamlit as st
 from groq import Groq
 import os
 st.set_page_config(page_title="Kabitix AI", page_icon="🤖", layout="wide")
+st.markdown("""
+<style>
+.main-title{
+    font-size:48px;
+    font-weight:800;
+    text-align:center;
+    color:white;
+    margin-top:20px;
+}
+.subtitle{
+    text-align:center;
+    color:#B3B3B3;
+    font-size:18px;
+    margin-bottom:30px;
+}
+</style>
 
-st.title("🤖 Kabitix AI")
-st.write("Welcome to Kabitix AI!")
+<div class="main-title">🤖 Kabitix AI</div>
+<div class="subtitle">How can I help you today?</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+.stApp{
+    background:#0D1117;
+}
+</style>
+""", unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
