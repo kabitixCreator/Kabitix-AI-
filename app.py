@@ -22,14 +22,33 @@ st.markdown("""
 <div class="main-title">🤖 Kabitix AI</div>
 <div class="subtitle">How can I help you today?</div>
 """, unsafe_allow_html=True)
-
 st.markdown("""
 <style>
 .stApp{
-    background:#0D1117;
+    background: linear-gradient(180deg,#0B0F19,#111827);
+}
+
+.main-title{
+    font-size:52px;
+    font-weight:800;
+    text-align:center;
+    color:white;
+    margin-top:15px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#A5B4FC;
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.stChatInput{
+    border-radius:20px;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
