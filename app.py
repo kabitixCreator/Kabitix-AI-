@@ -5,7 +5,7 @@ from translator import translator_page
 from settings import settings_page
 from study import study_page
 from utils import apply_theme
-
+from logo import show_logo
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -20,7 +20,7 @@ if "messages" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
-st.sidebar.title("🤖 Kabitix AI")
+show_logo() 
 
 if st.sidebar.button("➕ New Chat"):
     if st.session_state.messages:
@@ -28,7 +28,7 @@ if st.sidebar.button("➕ New Chat"):
             st.session_state.messages.copy()
         )
     st.session_state.messages = []
-    st.rerun()
+    st.rerun() 
 
 with st.sidebar.expander("📜 History", expanded=True):
     for i, chat in enumerate(st.session_state.history):
@@ -75,7 +75,10 @@ elif page == "⚙️ Settings":
     settings_page()
     st.stop() 
 st.title("🤖 Kabitix AI")
-st.caption("How can I help you today?")
+st.markdown(
+    "<p style='text-align:center;color:#8B949E;'>The Future of Smart AI</p>",
+    unsafe_allow_html=True
+) 
 
 uploaded_image = st.file_uploader(
     "📷 Upload an image",
