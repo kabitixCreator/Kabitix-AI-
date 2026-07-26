@@ -1,49 +1,14 @@
 import streamlit as st
 
 def welcome_cards():
-    st.markdown("""
-    <div style="margin-top:20px;"></div>
+    if st.button("💬 Chat with AI", use_container_width=True):
+        st.session_state.page = "🤖 Chat"
 
-    <div style="
-        background:#161B22;
-        padding:15px;
-        border-radius:15px;
-        margin-bottom:10px;
-        color:white;
-        font-size:18px;
-    ">
-    💬 Chat with AI
-    </div>
+    if st.button("📚 AI Study", use_container_width=True):
+        st.session_state.page = "📚 AI Study"
 
-    <div style="
-        background:#161B22;
-        padding:15px;
-        border-radius:15px;
-        margin-bottom:10px;
-        color:white;
-        font-size:18px;
-    ">
-    📚 AI Study
-    </div>
+    if st.button("🌍 Translator", use_container_width=True):
+        st.session_state.page = "🌍 Translator"
 
-    <div style="
-        background:#161B22;
-        padding:15px;
-        border-radius:15px;
-        margin-bottom:10px;
-        color:white;
-        font-size:18px;
-    ">
-    🌍 Translator
-    </div>
-
-    <div style="
-        background:#161B22;
-        padding:15px;
-        border-radius:15px;
-        color:white;
-        font-size:18px;
-    ">
-    📖 eBook Creator
-    </div>
-    """, unsafe_allow_html=True) 
+    if st.button("📖 eBook Creator", use_container_width=True):
+        st.session_state.page = "📚 eBook Creator"
