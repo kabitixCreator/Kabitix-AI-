@@ -26,6 +26,7 @@ welcome_cards()
 
 if "page" in st.session_state:
     page = st.session_state.page 
+page = st.session_state.get("page", "🤖 Chat") 
 if page == "📚 AI Study":
     study_page()
     st.stop()
