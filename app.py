@@ -67,45 +67,7 @@ if st.sidebar.button("🗑️ Clear History"):
     st.session_state.history = []
     st.rerun()
 
-if "page" not in st.session_state:
-    st.session_state.page = "🤖 Chat"
 
-page = st.sidebar.radio(
-    "📂 Menu",
-    [
-        "🤖 Chat",
-        "📚 AI Study",
-        "📚 eBook Creator",
-        "🌍 Translator",
-        "⚙️ Settings"
-    ],
-    index=[
-        "🤖 Chat",
-        "📚 AI Study",
-        "📚 eBook Creator",
-        "🌍 Translator",
-        "⚙️ Settings"
-    ].index(st.session_state.page)
-)
-
-st.session_state.page = page
-
-
-if page == "📚 AI Study":
-    study_page()
-    st.stop()
-
-elif page == "📚 eBook Creator":
-    ebook_page()
-    st.stop()
-
-elif page == "🌍 Translator":
-    translator_page()
-    st.stop()
-
-elif page == "⚙️ Settings":
-    settings_page()
-    st.stop() 
 
 
 
