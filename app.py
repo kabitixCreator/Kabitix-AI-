@@ -22,7 +22,25 @@ if "history" not in st.session_state:
     st.session_state.history = [] 
 
 show_logo() 
-welcome_cards() 
+welcome_cards()
+
+if "page" in st.session_state:
+    page = st.session_state.page 
+if page == "📚 AI Study":
+    study_page()
+    st.stop()
+
+elif page == "📚 eBook Creator":
+    ebook_page()
+    st.stop()
+
+elif page == "🌍 Translator":
+    translator_page()
+    st.stop()
+
+elif page == "⚙️ Settings":
+    settings_page()
+    st.stop() 
 if st.sidebar.button("➕ New Chat"):
     if st.session_state.messages:
         st.session_state.history.append(
@@ -49,6 +67,9 @@ if st.sidebar.button("🗑️ Clear History"):
     st.session_state.history = []
     st.rerun()
 
+if "page" not in st.session_state:
+    st.session_state.page = "🤖 Chat"
+
 page = st.sidebar.radio(
     "📂 Menu",
     [
@@ -57,7 +78,17 @@ page = st.sidebar.radio(
         "📚 eBook Creator",
         "🌍 Translator",
         "⚙️ Settings"
-    ]
+    ],
+    index=[
+        "🤖 Chat",
+        "📚 AI Study",
+        "📚 eBook Creator",
+        "🌍 Translator",
+        "⚙️ Settings"
+    ].index(st.session_state.page)
+)
+
+st.session_state.page = page
 )
 
 if page == "📚 AI Study":
