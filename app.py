@@ -6,6 +6,7 @@ from settings import settings_page
 from study import study_page
 from utils import apply_theme
 from logo import show_logo
+from welcome import welcome_cards 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -18,10 +19,10 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 if "history" not in st.session_state:
-    st.session_state.history = []
+    st.session_state.history = [] 
 
 show_logo() 
-
+welcome_cards() 
 if st.sidebar.button("➕ New Chat"):
     if st.session_state.messages:
         st.session_state.history.append(
