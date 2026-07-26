@@ -109,13 +109,14 @@ elif page == "⚙️ Settings":
 
 
 
-uploaded_image = st.file_uploader(
-    "📷 Upload an image",
-    type=["png", "jpg", "jpeg"]
-)
+if st.button("📷 Upload Image"):
+    uploaded_image = st.file_uploader(
+        "",
+        type=["png", "jpg", "jpeg"]
+    )
 
-if uploaded_image:
-    st.image(uploaded_image, caption="Uploaded Image", use_container_width=True)
+    if uploaded_image:
+        st.image(uploaded_image, use_container_width=True) 
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
