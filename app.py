@@ -75,11 +75,8 @@ elif page == "🌍 Translator":
 elif page == "⚙️ Settings":
     settings_page()
     st.stop() 
-st.title("🤖 Kabitix AI")
-st.markdown(
-    "<p style='text-align:center;color:#8B949E;'>The Future of Smart AI</p>",
-    unsafe_allow_html=True
-) 
+
+
 
 uploaded_image = st.file_uploader(
     "📷 Upload an image",
