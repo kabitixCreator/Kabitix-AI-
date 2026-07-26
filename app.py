@@ -89,7 +89,7 @@ page = st.sidebar.radio(
 )
 
 st.session_state.page = page
-)
+
 
 if page == "📚 AI Study":
     study_page()
