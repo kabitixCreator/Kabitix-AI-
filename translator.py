@@ -1,29 +1,54 @@
 import streamlit as st
+from chatbot import get_ai_response
 
 def translator_page():
     st.title("🌍 AI Translator")
 
-    text = st.text_area("Enter text")
+    text = st.text_area(
+        "Enter text",
+        height=180,
+        placeholder="Type anything..."
+    )
 
     language = st.selectbox(
         "Translate To",
         [
-            "Hindi",
             "English",
+            "Hindi",
             "Bengali",
             "Assamese",
             "Khasi",
             "Garo",
-            "Nagamese"
+            "Nagamese",
+            "French",
+            "Spanish",
+            "Japanese"
         ]
     )
 
     if st.button("🌐 Translate"):
-        if text:
-            st.success(f"Translated to {language}")
-            st.info(
-                "⚠ Translation AI will be connected in the next update.\n\n"
-                f"Original Text:\n\n{text}"
-            )
-        else:
+
+        if not text.strip():
             st.warning("Please enter some text.")
+            return
+
+        prompt = f"""
+Translate the following text into {language}.
+
+Only return the translated text.
+
+Text:
+{text}
+"""
+
+        with st.spinner("🌍 Translating..."):
+            result = get_ai_response(prompt)
+
+        st.success("Translation Complete!")
+        st.markdown(result)
+
+        st.download_button(
+            "📥 Download Translation",
+            result,
+            file_name="translation.txt"
+        )
