@@ -83,10 +83,10 @@ if uploaded_image:
 
     image_question = st.text_input(
         "Ask something about this image"
-    )
+    ) 
 
     if st.button("🔍 Analyze Image"):
-    with st.spinner("🤖 Analyzing image..."):
+        with st.spinner("🤖 Analyzing image..."):
         result = analyze_image(
             uploaded_image,
             image_question
