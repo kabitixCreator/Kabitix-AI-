@@ -86,9 +86,7 @@ if uploaded_image:
     )
 
     if st.button("🔍 Analyze Image"):
-
     with st.spinner("🤖 Analyzing image..."):
-
         result = analyze_image(
             uploaded_image,
             image_question
