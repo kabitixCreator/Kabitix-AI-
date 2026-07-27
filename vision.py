@@ -3,18 +3,26 @@ import os
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def analyze_image(image_base64, question):
-    return """
-🖼️ Image Vision is coming soon!
+def analyze_image(image, question):
 
-Kabitix AI will soon be able to:
+    if image is None:
+        return "❌ Please upload an image."
 
-✅ Describe images
-✅ Read text (OCR)
-✅ Solve math from photos
-✅ Explain biology diagrams
-✅ Identify objects
-✅ Answer questions about uploaded images
+    return f"""
+🖼️ Image received successfully!
 
-This feature is under development.
+Question:
+{question}
+
+✅ The image has been uploaded correctly.
+
+🚀 Real Vision AI will be connected in the next step.
+After that Kabitix AI will be able to:
+
+• Describe images
+• Read text (OCR)
+• Solve math from photos
+• Explain biology diagrams
+• Identify objects
+• Answer questions about uploaded images
 """ 
