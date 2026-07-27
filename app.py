@@ -72,14 +72,35 @@ if st.sidebar.button("🗑️ Clear History"):
 
 
 
-if st.button("📷 Upload Image"):
-    uploaded_image = st.file_uploader(
-        "",
-        type=["png", "jpg", "jpeg"]
+uploaded_image = st.file_uploader(
+    "📷 Upload an image",
+    type=["png", "jpg", "jpeg"]
+)
+
+if uploaded_image:
+    st.image(uploaded_image, use_container_width=True)
+
+    image_question = st.text_input(
+        "Ask something about this image"
     )
 
-    if uploaded_image:
-        st.image(uploaded_image, use_container_width=True) 
+    if st.button("🔍 Analyze Image"):
+
+        with st.spinner("🤖 Analyzing image..."):
+
+            prompt = f"""
+User Question:
+{image_question}
+
+The user has uploaded an image.
+
+For now, reply politely that Image Vision is still under development in Kabitix AI and will be available in a future update.
+""" 
+
+            result = get_ai_response(prompt)
+
+        st.success("Analysis Complete!")
+        st.markdown(result) 
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
