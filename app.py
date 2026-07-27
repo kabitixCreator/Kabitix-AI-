@@ -7,6 +7,7 @@ from study import study_page
 from utils import apply_theme
 from logo import show_logo
 from welcome import welcome_cards 
+from vision import analyze_image 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -86,21 +87,15 @@ if uploaded_image:
 
     if st.button("🔍 Analyze Image"):
 
-        with st.spinner("🤖 Analyzing image..."):
+    with st.spinner("🤖 Analyzing image..."):
 
-            prompt = f"""
-User Question:
-{image_question}
+        result = analyze_image(
+            uploaded_image,
+            image_question
+        )
 
-The user has uploaded an image.
-
-For now, reply politely that Image Vision is still under development in Kabitix AI and will be available in a future update.
-""" 
-
-            result = get_ai_response(prompt)
-
-        st.success("Analysis Complete!")
-        st.markdown(result) 
+    st.success("Analysis Complete!")
+    st.markdown(result) 
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
