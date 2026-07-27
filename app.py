@@ -78,10 +78,6 @@ uploaded_image = st.file_uploader(
     type=["png", "jpg", "jpeg"]
 )
 
-uploaded_image = st.file_uploader(
-    "📷 Upload an image",
-    type=["png", "jpg", "jpeg"]
-)
 
 if uploaded_image:
     st.image(uploaded_image, use_container_width=True)
