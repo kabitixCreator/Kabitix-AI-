@@ -1,5 +1,6 @@
 from groq import Groq
 import os
+import base64
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -8,21 +9,28 @@ def analyze_image(image, question):
     if image is None:
         return "❌ Please upload an image."
 
-    return f"""
-🖼️ Image received successfully!
+    image_bytes = image.read()
+    image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
-Question:
-{question}
+    response = client.chat.completions.create(
+        model="meta-llama/llama-4-scout-17b-16e-instruct",
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": question
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_base64}"
+                        }
+                    }
+                ]
+            }
+        ]
+    )
 
-✅ The image has been uploaded correctly.
-
-🚀 Real Vision AI will be connected in the next step.
-After that Kabitix AI will be able to:
-
-• Describe images
-• Read text (OCR)
-• Solve math from photos
-• Explain biology diagrams
-• Identify objects
-• Answer questions about uploaded images
-""" 
+    return response.choices[0].message.content
