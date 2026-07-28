@@ -150,7 +150,7 @@ if prompt:
 
         with st.spinner("🤖 Kabitix is thinking..."):
 
-            reply = get_ai_response(prompt)
+            reply = get_ai_response(prompt, pdf_text) 
 
         st.markdown(reply)
 
