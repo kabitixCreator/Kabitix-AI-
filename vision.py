@@ -33,4 +33,9 @@ def analyze_image(image, question):
         ]
     )
 
-    return response.choices[0].message.content
+    result = response.choices[0].message.content
+
+if "<think>" in result:
+    result = result.split("</think>")[-1].strip()
+
+return result 
