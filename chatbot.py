@@ -6,7 +6,7 @@ import os
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
-def get_ai_response(prompt):
+def get_ai_response(prompt, pdf_text=""): 
     try:
         # Live web search
         search = tavily.search(
@@ -39,6 +39,10 @@ If there are no search results, answer using your own knowledge.
 Live Search Results:
 
 {web_info}
+
+PDF Content:
+
+{pdf_text} 
 """
                 },
                 {
