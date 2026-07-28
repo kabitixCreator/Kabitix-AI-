@@ -13,7 +13,7 @@ def analyze_image(image, question):
     image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
     response = client.chat.completions.create(
-        model="llama-3.2-90b-vision-preview",
+        model="meta-llama/llama-4-scout",
         messages=[
             {
                 "role": "user",
