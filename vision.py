@@ -5,6 +5,7 @@ import base64
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def analyze_image(image, question):
+
     if image is None:
         return "❌ Please upload an image."
 
@@ -34,7 +35,8 @@ def analyze_image(image, question):
 
     result = response.choices[0].message.content
 
-    if "<think>" in result:
-        result = result.split("</think>")[-1].strip()
+    # Remove the thinking section
+    if "</think>" in result:
+        result = result.split("</think>", 1)[1].strip()
 
-    return result
+    return result 
