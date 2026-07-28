@@ -105,6 +105,7 @@ if uploaded_image:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"]) 
+prompt = None 
 voice = mic_recorder(
     start_prompt="🎤 Speak",
     stop_prompt="⏹ Stop",
@@ -117,7 +118,10 @@ if voice:
     prompt = speech_to_text("voice.wav")
 
     st.success(f"🎤 You said: {prompt}") 
-prompt = st.chat_input("💬 Ask anything...") 
+text_prompt = st.chat_input("💬 Ask anything...")
+
+if text_prompt:
+    prompt = text_prompt 
 
 if prompt:
 
