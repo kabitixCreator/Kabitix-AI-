@@ -9,6 +9,7 @@ from welcome import welcome_cards
 from utils import apply_theme
 from vision import analyze_image
 from streamlit_mic_recorder import mic_recorder 
+from pdfchat import read_pdf 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -76,7 +77,17 @@ if st.sidebar.button("🗑️ Clear History"):
     st.rerun() 
 st.title("🤖 Kabitix AI")
 st.caption("How can I help you today?")
+uploaded_pdf = st.file_uploader(
+    "📄 Upload PDF",
+    type=["pdf"],
+    key="pdf_upload"
+)
 
+pdf_text = ""
+
+if uploaded_pdf:
+    pdf_text = read_pdf(uploaded_pdf)
+    st.success("✅ PDF uploaded successfully!") 
 uploaded_image = st.file_uploader(
     "📷 Upload an image",
     type=["png", "jpg", "jpeg"],
