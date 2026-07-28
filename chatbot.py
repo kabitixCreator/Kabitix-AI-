@@ -52,3 +52,15 @@ Live Search Results:
 
     except Exception as e:
         return f"Error: {e}"
+def speech_to_text(audio_file):
+    try:
+        with open(audio_file, "rb") as file:
+            transcript = client.audio.transcriptions.create(
+                file=file,
+                model="whisper-large-v3"
+            )
+
+        return transcript.text
+
+    except Exception as e:
+        return f"Error: {e}" 
