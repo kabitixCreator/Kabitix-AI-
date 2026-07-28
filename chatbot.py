@@ -10,10 +10,11 @@ def get_ai_response(prompt):
     try:
         # Live web search
         search = tavily.search(
-            query=prompt,
-            topic="news",
-            max_results=5
-        )
+    query=prompt,
+    search_depth="advanced",
+    max_results=5,
+    include_answer=True
+        ) 
 
         web_info = ""
 
