@@ -9,7 +9,7 @@ from welcome import welcome_cards
 from utils import apply_theme
 from vision import analyze_image
 from streamlit_mic_recorder import mic_recorder 
-from pdfchat import read_pdf 
+from pdf_reader import read_pdf 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
