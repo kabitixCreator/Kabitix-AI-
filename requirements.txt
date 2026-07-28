@@ -3,3 +3,4 @@ groq
 tavily-python
 streamlit-mic-recorder
 pypdf
+PyPDF2
