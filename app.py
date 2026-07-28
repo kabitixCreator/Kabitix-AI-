@@ -8,7 +8,7 @@ from logo import show_logo
 from welcome import welcome_cards
 from utils import apply_theme
 from vision import analyze_image
-
+from streamlit_mic_recorder import mic_recorder 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -105,7 +105,14 @@ if uploaded_image:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"]) 
-prompt = st.chat_input("💬 Ask anything...")
+voice = mic_recorder(
+    start_prompt="🎤 Speak",
+    stop_prompt="⏹ Stop",
+    key="mic"
+)
+
+if voice:
+    st.success("🎤 Voice received!") 
 
 if prompt:
 
