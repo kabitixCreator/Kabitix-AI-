@@ -1,5 +1,5 @@
 import streamlit as st
-from chatbot import get_ai_response
+from chatbot import get_ai_response, speech_to_text 
 from study import study_page
 from ebook import ebook_page
 from translator import translator_page
@@ -110,9 +110,14 @@ voice = mic_recorder(
     stop_prompt="⏹ Stop",
     key="mic"
 )
-
 if voice:
-    st.success("🎤 Voice received!") 
+    with open("voice.wav", "wb") as f:
+        f.write(voice["bytes"])
+
+    prompt = speech_to_text("voice.wav")
+
+    st.success(f"🎤 You said: {prompt}") 
+prompt = st.chat_input("💬 Ask anything...") 
 
 if prompt:
 
