@@ -92,7 +92,8 @@ def get_ai_response(prompt, pdf_text=""):
                     f"Content: {result.get('content','')}\n"
                     f"URL: {result.get('url','')}\n\n"
                 )
-                        response = client.chat.completions.create(
+                        response =
+                client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
                 {
