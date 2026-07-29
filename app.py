@@ -10,10 +10,11 @@ from utils import apply_theme
 from vision import analyze_image
 from streamlit_mic_recorder import mic_recorder 
 from pdf_reader import read_pdf 
+from voice_reply import speak  
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
-    layout="centered"
+    layout="centered" 
 )
 
 apply_theme()
@@ -137,26 +138,28 @@ if text_prompt:
 if prompt:
 
     st.session_state.messages.append(
-        {
-            "role": "user",
-            "content": prompt
-        }
-    )
+    {
+        "role": "user",
+        "content": prompt
+    }
+)
 
-    with st.chat_message("user"):
-        st.markdown(prompt)
+with st.chat_message("user"):
+    st.markdown(prompt)
 
-    with st.chat_message("assistant"):
+with st.chat_message("assistant"):
 
-        with st.spinner("🤖 Kabitix is thinking..."):
+    with st.spinner("🤖 Kabitix is thinking..."): 
+        reply = get_ai_response(prompt, pdf_text)
 
-            reply = get_ai_response(prompt, pdf_text) 
+    audio_file = speak(reply)
+    st.audio(audio_file)
 
-        st.markdown(reply)
+    st.markdown(reply)
 
-    st.session_state.messages.append(
-        {
-            "role": "assistant",
-            "content": reply
-        }
-    ) 
+st.session_state.messages.append(
+    {
+        "role": "assistant",
+        "content": reply
+    }
+) 
