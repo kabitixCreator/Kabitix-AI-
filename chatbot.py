@@ -56,7 +56,8 @@ def get_ai_response(prompt, pdf_text=""):
                 return f"You live in {memory['place']}."
 
             return "I don't know where you live yet."
-      if "i study in" in prompt_lower:
+    
+        if "i study in" in prompt_lower:
 
             study = prompt.split("i study in")[-1].strip()
 
