@@ -1,6 +1,6 @@
 from groq import Groq
 from tavily import TavilyClient
-from memory import load_memory, save_memory 
+from memory import load_memory, save_memory, remember 
 import os
 
 # API Clients
@@ -12,7 +12,70 @@ def get_ai_response(prompt, pdf_text=""):
         memory = load_memory()
 
         if "my name is" in prompt.lower():
-            name = prompt.lower().split("my name is")[-1].strip()
+    name = prompt.lower().split("my name is")[-1].strip()
+
+    memory["name"] = name
+    save_memory(memory)
+
+    return f"Nice to meet you, {name}! I will remember your name."
+
+
+if "i live in" in prompt.lower():
+    place = prompt.lower().split("i live in")[-1].strip()
+
+    remember("place", place)
+
+    return f"Okay! I'll remember that you live in {place}."
+
+
+if "i study in" in prompt.lower():
+    study = prompt.lower().split("i study in")[-1].strip()
+
+    remember("study", study)
+
+    return f"Got it! I'll remember that you study in {study}." 
+   if "what is my name" in prompt.lower() or "who am i" in prompt.lower():
+
+    if "name" in memory:
+        return f"Your name is {memory['name']}."
+
+    return "I don't know your name yet."
+
+
+if "where do i live" in prompt.lower():
+
+    if "place" in memory:
+        return f"You live in {memory['place']}."
+
+    return "I don't know where you live yet."
+
+
+if "what do i study" in prompt.lower() or "where do i study" in prompt.lower():
+
+    if "study" in memory:
+        return f"You study in {memory['study']}."
+
+    return "I don't know what you study yet." 
+    place = prompt.lower().split("i live in")[-1].strip()
+
+    remember("place", place)
+
+    return f"Okay! I'll remember that you live in {place}." 
+     if "i study in" in prompt.lower():
+    study = prompt.lower().split("i study in")[-1].strip()
+
+    remember("study", study) 
+
+    return f"Got it! I'll remember that you study in {study}."     
+  if "where do i live" in prompt.lower():
+    if "place" in memory:
+        return f"You live in {memory['place']}."
+    return "I don't know where you live yet." 
+if "what do i study" in prompt.lower() or "where do i study" in prompt.lower():
+    if "study" in memory:
+        return f"You study in {memory['study']}."
+    return "I don't know what you study yet." 
+name = prompt.lower().split("my name is")[-1].strip()
 
             memory["name"] = name
             save_memory(memory)
@@ -24,15 +87,7 @@ def get_ai_response(prompt, pdf_text=""):
             if "name" in memory:
                 return f"Your name is {memory['name']}."
 
-            return "I don't know your name yet. Tell me by saying 'My name is ...'"
-
-        # Live web search
-        search = tavily.search(
-            query=prompt,
-            search_depth="advanced",
-            max_results=5,
-            include_answer=True
-        ) 
+            return "I don't know your name yet. Tell me by saying 'My name is .
 # Live web search
         search = tavily.search(
     query=prompt,
