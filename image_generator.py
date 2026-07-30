@@ -1,24 +1,22 @@
-from groq import Groq
+import requests
 import os
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-dev"
 
-def generate_image_prompt(prompt):
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Convert the user's request into a detailed, high-quality "
-                    "image generation prompt."
-                )
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
+headers = {
+    "Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY')}"
+}
+
+def generate_image(prompt):
+    response = requests.post(
+        API_URL,
+        headers=headers,
+        json={
+            "inputs": prompt
+        }
     )
 
-    return response.choices[0].message.content 
+    if response.status_code != 200:
+        return None
+
+    return response.content
