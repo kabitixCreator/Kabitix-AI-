@@ -58,7 +58,7 @@ def get_ai_response(prompt, pdf_text=""):
 
             return f"Got it! I'll remember that you study in {study}."
 
-        if "what do i study" in prompt_lower or "where do i study" in prompt_lower:
+        if "what do i study" in prompt_lower or "where do i study" in prompt_lower: 
 
             if "study" in memory:
                 return f"You study in {memory['study']}."
