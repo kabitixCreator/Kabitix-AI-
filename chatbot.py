@@ -18,14 +18,15 @@ def get_ai_response(prompt, pdf_text=""):
 
         web_info = ""
 
-        if search.get("results"):
+                if search.get("results"):
             for result in search["results"]:
                 web_info += (
                     f"Title: {result.get('title','')}\n"
                     f"Content: {result.get('content','')}\n"
                     f"URL: {result.get('url','')}\n\n"
                 )
-                        response = client.chat.completions.create(
+
+        response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
                 {
@@ -59,7 +60,9 @@ PDF Content:
 
     except Exception as e:
         return f"Error: {e}"
-        def speech_to_text(audio_file):
+
+
+def speech_to_text(audio_file):
     try:
         with open(audio_file, "rb") as file:
             transcript = client.audio.transcriptions.create(
