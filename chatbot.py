@@ -120,7 +120,7 @@ PDF Content:
 
         return response.choices[0].message.content
 
-            except Exception as e:
+        except Exception as e:
         return f"Error: {e}" 
 
 def speech_to_text(audio_file):
