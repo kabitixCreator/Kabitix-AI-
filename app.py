@@ -11,7 +11,7 @@ from vision import analyze_image
 from streamlit_mic_recorder import mic_recorder 
 from pdf_reader import read_pdf 
 from voice_reply import speak  
-from image_generator import generate_image_prompt 
+from image_generator import generate_image 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -140,12 +140,15 @@ image_prompt = st.text_input(
     "Describe the image you want to create"
 )
 
-if st.button("🎨 Generate Image Prompt"):
-    with st.spinner("Creating image prompt..."):
-        prompt_result = generate_image_prompt(image_prompt)
+if st.button("🎨 Generate Image"):
 
-    st.success("✅ Image prompt created!")
-    st.code(prompt_result) 
+    with st.spinner("Generating image..."):
+        image = generate_image(image_prompt)
+
+    if image:
+        st.image(image)
+    else:
+        st.error("Image generation failed.") 
 text_prompt = st.chat_input("💬 Ask anything...")
 
 if text_prompt:
