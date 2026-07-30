@@ -9,7 +9,21 @@ tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 def get_ai_response(prompt, pdf_text=""):
     try:
+        memory = load_memory() 
+               if "my name is" in prompt.lower():
+            name = prompt.split("my name is")[-1].strip()
 
+            memory["name"] = name
+            save_memory(memory)
+
+            return f"Nice to meet you, {name}! I will remember your name."
+
+        if "what is my name" in prompt.lower():
+
+            if "name" in memory:
+                return f"Your name is {memory['name']}."
+
+            return "I don't know your name yet. Tell me by saying 'My name is...'"
         search = tavily.search(
             query=prompt,
             search_depth="advanced",
