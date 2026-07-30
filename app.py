@@ -50,7 +50,10 @@ elif page == "⚙️ Settings":
     st.stop()
 
 st.sidebar.title("🤖 Kabitix AI")
+import streamlit as st
 
+if "messages" not in st.session_state:
+    st.session_state.messages = [] 
 if st.sidebar.button("➕ New Chat"):
     if st.session_state.messages:
         st.session_state.history.append(
