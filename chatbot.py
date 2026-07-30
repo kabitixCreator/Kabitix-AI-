@@ -10,7 +10,8 @@ tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 def get_ai_response(prompt, pdf_text=""):
     try:
         memory = load_memory() 
-               if "my name is" in prompt.lower():
+               
+        if "my name is" in prompt.lower():
             name = prompt.split("my name is")[-1].strip()
 
             memory["name"] = name
