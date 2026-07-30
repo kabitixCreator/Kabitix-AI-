@@ -1,5 +1,6 @@
 from groq import Groq
 from tavily import TavilyClient
+from memory import load_memory, save_memory, remember 
 import os
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
