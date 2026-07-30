@@ -120,12 +120,12 @@ PDF Content:
 
         return response.choices[0].message.content
 
-    except Exception as e:
+        except Exception as e:
         return f"Error: {e}"
-        def speech_to_text(audio_file):
+
+def speech_to_text(audio_file):
     try:
         with open(audio_file, "rb") as file:
-
             transcript = client.audio.transcriptions.create(
                 file=file,
                 model="whisper-large-v3"
@@ -134,4 +134,4 @@ PDF Content:
         return transcript.text
 
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}" 
