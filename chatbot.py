@@ -1,71 +1,13 @@
 from groq import Groq
 from tavily import TavilyClient
-from memory import load_memory, save_memory, remember
 import os
 
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
-
-tavily = TavilyClient(
-    api_key=os.getenv("TAVILY_API_KEY")
-)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 
 def get_ai_response(prompt, pdf_text=""):
-
     try:
-
-        memory = load_memory()
-
-        prompt_lower = prompt.lower()
-
-        # ---------- MEMORY ----------
-
-        if "my name is" in prompt_lower:
-            name = prompt.split("my name is")[-1].strip()
-
-            memory["name"] = name
-            save_memory(memory)
-
-            return f"Nice to meet you, {name}! I will remember your name."
-
-        if "what is my name" in prompt_lower or "who am i" in prompt_lower:
-
-            if "name" in memory:
-                return f"Your name is {memory['name']}."
-
-            return "I don't know your name yet."
-
-        if "i live in" in prompt_lower:
-            place = prompt.split("i live in")[-1].strip()
-
-            remember("place", place)
-
-            return f"Okay! I'll remember that you live in {place}."
-
-        if "where do i live" in prompt_lower:
-
-            if "place" in memory:
-                return f"You live in {memory['place']}."
-
-            return "I don't know where you live yet."
-
-        if "i study in" in prompt_lower:
-            study = prompt.split("i study in")[-1].strip()
-
-            remember("study", study)
-
-            return f"Got it! I'll remember that you study in {study}."
-
-        if "what do i study" in prompt_lower or "where do i study" in prompt_lower: 
-
-            if "study" in memory:
-                return f"You study in {memory['study']}."
-
-            return "I don't know what you study yet."
-
-        # ---------- LIVE SEARCH ----------
 
         search = tavily.search(
             query=prompt,
@@ -82,8 +24,8 @@ def get_ai_response(prompt, pdf_text=""):
                     f"Title: {result.get('title','')}\n"
                     f"Content: {result.get('content','')}\n"
                     f"URL: {result.get('url','')}\n\n"
-                ) 
-        response = client.chat.completions.create(
+                )
+                        response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
                 {
@@ -92,15 +34,10 @@ def get_ai_response(prompt, pdf_text=""):
 You are Kabitix AI, a smart, friendly and helpful AI assistant.
 
 Rules:
-- Answer from the uploaded PDF whenever possible.
-- If the PDF does not contain the answer, use the Tavily live search results.
+- Use the uploaded PDF whenever possible.
+- If the PDF doesn't contain the answer, use the Tavily search results.
 - If neither helps, answer using your own knowledge.
-- Be short, clear and helpful.
-
-Memory:
-Name: {memory.get("name","")}
-Place: {memory.get("place","")}
-Study: {memory.get("study","")}
+- Keep your answers short, clear and helpful.
 
 Live Search Results:
 
@@ -120,10 +57,9 @@ PDF Content:
 
         return response.choices[0].message.content
 
-        except Exception as e:
-        return f"Error: {e}" 
-
-def speech_to_text(audio_file):
+    except Exception as e:
+        return f"Error: {e}"
+        def speech_to_text(audio_file):
     try:
         with open(audio_file, "rb") as file:
             transcript = client.audio.transcriptions.create(
@@ -134,4 +70,4 @@ def speech_to_text(audio_file):
         return transcript.text
 
     except Exception as e:
-        return f"Error: {e}" 
+        return f"Error: {e}"
