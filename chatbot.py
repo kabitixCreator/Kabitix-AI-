@@ -17,7 +17,6 @@ def get_ai_response(prompt, pdf_text=""):
         )
 
         web_info = ""
-
         if search.get("results"):
             for result in search["results"]:
                 web_info += (
