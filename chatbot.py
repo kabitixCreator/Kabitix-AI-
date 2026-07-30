@@ -83,20 +83,16 @@ def get_ai_response(prompt, pdf_text=""):
             include_answer=True
         )
 
-        web_info = ""
+        web_info = "" ( 
 
         if search.get("results"):
-        for result in search["results"]:
-                web_info += (
-                    f"Title: 
-        {result.get('title','')}\n"
-                    f"Content: 
-        {result.get('content','')}\n"
-                    f"URL: 
-        {result.get('url','')}\n\n"
+            for result in search["results"]:
+                 web_info += 
+                    f"Title:{result.get('title','')}\n"
+                    f"Content:{result.get('content','')}\n"
+                    f"URL: {result.get('url','')}\n\n"
                 )
-         response =
-         client.chat.completions.create(
+         response = client.chat.completions.create( 
          
          model="llama-3.3-70b-versatile",
             messages=[
