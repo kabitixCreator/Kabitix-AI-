@@ -20,7 +20,6 @@ def get_ai_response(prompt, pdf_text=""):
 
         prompt_lower = prompt.lower()
 
-
         # ---------- MEMORY ----------
 
         if "my name is" in prompt_lower:
@@ -38,17 +37,12 @@ def get_ai_response(prompt, pdf_text=""):
 
             return "I don't know your name yet."
 
-
-
         if "i live in" in prompt_lower:
-
             place = prompt.split("i live in")[-1].strip()
 
             remember("place", place)
 
             return f"Okay! I'll remember that you live in {place}."
-
-
 
         if "where do i live" in prompt_lower:
 
@@ -56,15 +50,13 @@ def get_ai_response(prompt, pdf_text=""):
                 return f"You live in {memory['place']}."
 
             return "I don't know where you live yet."
-    
-        if "i study in" in prompt_lower:
 
+        if "i study in" in prompt_lower:
             study = prompt.split("i study in")[-1].strip()
 
             remember("study", study)
 
             return f"Got it! I'll remember that you study in {study}."
-
 
         if "what do i study" in prompt_lower or "where do i study" in prompt_lower:
 
@@ -72,7 +64,6 @@ def get_ai_response(prompt, pdf_text=""):
                 return f"You study in {memory['study']}."
 
             return "I don't know what you study yet."
-
 
         # ---------- LIVE SEARCH ----------
 
@@ -83,32 +74,33 @@ def get_ai_response(prompt, pdf_text=""):
             include_answer=True
         )
 
-        web_info = "" ( 
+        web_info = ""
 
         if search.get("results"):
             for result in search["results"]:
-                 web_info += 
-                    f"Title:{result.get('title','')}\n"
-                    f"Content:{result.get('content','')}\n"
+                web_info += (
+                    f"Title: {result.get('title','')}\n"
+                    f"Content: {result.get('content','')}\n"
                     f"URL: {result.get('url','')}\n\n"
-                )
-         response = client.chat.completions.create( 
-         
-         model="llama-3.3-70b-versatile",
+                ) 
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
             messages=[
                 {
                     "role": "system",
                     "content": f"""
 You are Kabitix AI, a smart, friendly and helpful AI assistant.
 
-Always use the live Tavily search results if they are relevant.
-
-If a PDF has been uploaded, use the PDF content to answer whenever possible.
+Rules:
+- Answer from the uploaded PDF whenever possible.
+- If the PDF does not contain the answer, use the Tavily live search results.
+- If neither helps, answer using your own knowledge.
+- Be short, clear and helpful.
 
 Memory:
-Name: {memory.get('name','')}
-Place: {memory.get('place','')}
-Study: {memory.get('study','')}
+Name: {memory.get("name","")}
+Place: {memory.get("place","")}
+Study: {memory.get("study","")}
 
 Live Search Results:
 
@@ -129,10 +121,11 @@ PDF Content:
         return response.choices[0].message.content
 
     except Exception as e:
-        return f"Error: {e}" 
-def speech_to_text(audio_file):
+        return f"Error: {e}"
+        def speech_to_text(audio_file):
     try:
         with open(audio_file, "rb") as file:
+
             transcript = client.audio.transcriptions.create(
                 file=file,
                 model="whisper-large-v3"
@@ -141,4 +134,4 @@ def speech_to_text(audio_file):
         return transcript.text
 
     except Exception as e:
-        return f"Error: {e}" 
+        return f"Error: {e}"
