@@ -95,7 +95,7 @@ pdf_text = ""
 if uploaded_pdf:
     pdf_text = read_pdf(uploaded_pdf)
     st.success("✅ PDF uploaded successfully!") 
-    uploaded_word = st.file_uploader(
+uploaded_word = st.file_uploader(
     "📄 Upload Word File",
     type=["docx"],
     key="word_upload"
