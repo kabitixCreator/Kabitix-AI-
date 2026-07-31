@@ -4,7 +4,8 @@ import os
 API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-dev"
 
 headers = {
-    "Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY')}"
+    "Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY')}",
+    "Content-Type": "application/json"
 }
 
 def generate_image(prompt):
@@ -16,7 +17,9 @@ def generate_image(prompt):
         }
     )
 
-    if response.status_code != 200:
-        return None
+    if response.status_code == 200:
+        return response.content
 
-    return response.content
+    print(response.status_code)
+    print(response.text)
+    return None 
