@@ -12,6 +12,7 @@ from streamlit_mic_recorder import mic_recorder
 from pdf_reader import read_pdf 
 from voice_reply import speak  
 from image_generator import generate_image 
+from word_reader import read_word 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -86,7 +87,7 @@ uploaded_pdf = st.file_uploader(
     "📄 Upload PDF",
     type=["pdf"],
     key="pdf_upload"
-)
+) 
 
 pdf_text = ""
 
