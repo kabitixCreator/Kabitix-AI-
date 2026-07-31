@@ -103,16 +103,7 @@ uploaded_word = st.file_uploader(
 
 if uploaded_word:
     pdf_text = read_word(uploaded_word)
-    st.success("✅ Word file uploaded successfully!")
- uploaded_excel = st.file_uploader(
-    "📊 Upload Excel File",
-    type=["xlsx"],
-    key="excel_upload"
-)
-
-if uploaded_excel:
-    pdf_text = read_excel(uploaded_excel)
-    st.success("✅ Excel file uploaded successfully!") 
+    st.success("✅ Word file uploaded successfully!") 
 uploaded_image = st.file_uploader(
     "📷 Upload an image",
     type=["png", "jpg", "jpeg"],
