@@ -5,3 +5,4 @@ streamlit-mic-recorder
 pypdf
 PyPDF2
 gtts
+python-docx
