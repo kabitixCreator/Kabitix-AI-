@@ -9,7 +9,7 @@ tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 def get_ai_response(prompt, pdf_text=""):
     try:
-        if prompt is None:
+    if prompt is None:
     return "Please type or speak a message." 
         memory = load_memory() 
         if "my name is" in prompt.lower():
