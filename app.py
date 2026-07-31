@@ -13,6 +13,7 @@ from pdf_reader import read_pdf
 from voice_reply import speak  
 from image_generator import generate_image 
 from word_reader import read_word 
+from excel_reader import read_excel 
 st.set_page_config(
     page_title="Kabitix AI",
     page_icon="🤖",
@@ -94,6 +95,24 @@ pdf_text = ""
 if uploaded_pdf:
     pdf_text = read_pdf(uploaded_pdf)
     st.success("✅ PDF uploaded successfully!") 
+uploaded_word = st.file_uploader(
+    "📄 Upload Word File",
+    type=["docx"],
+    key="word_upload"
+)
+
+if uploaded_word:
+    pdf_text = read_word(uploaded_word)
+    st.success("✅ Word file uploaded successfully!")
+    uploaded_excel = st.file_uploader(
+    "📊 Upload Excel File",
+    type=["xlsx"],
+    key="excel_upload"
+)
+
+if uploaded_excel:
+    pdf_text = read_excel(uploaded_excel)
+    st.success("✅ Excel file uploaded successfully!") 
 uploaded_image = st.file_uploader(
     "📷 Upload an image",
     type=["png", "jpg", "jpeg"],
