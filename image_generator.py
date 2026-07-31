@@ -1,7 +1,7 @@
 import requests
 import os
 
-API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell"
+API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell" 
 
 headers = {
     "Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY')}",
