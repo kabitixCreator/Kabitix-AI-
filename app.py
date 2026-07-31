@@ -148,7 +148,7 @@ if st.button("🎨 Generate Image"):
     if image:
         st.image(image)
     else:
-        st.error("Image generation failed.") 
+        st.error("Image generation failed. Check Render logs.") 
 text_prompt = st.chat_input("💬 Ask anything...")
 
 if text_prompt:
