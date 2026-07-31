@@ -6,3 +6,5 @@ pypdf
 PyPDF2
 gtts
 python-docx
+pandas
+openpyxl 
