@@ -84,6 +84,8 @@ if st.sidebar.button("🗑️ Clear History"):
     st.rerun() 
 st.title("🤖 Kabitix AI")
 st.caption("How can I help you today?")
+st.chat_input("💬 Ask anything...")
+st.divider() 
 uploaded_pdf = st.file_uploader(
     "📄 Upload PDF",
     type=["pdf"],
