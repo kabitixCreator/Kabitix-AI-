@@ -90,8 +90,7 @@ if st.session_state.page == "🤖 Chat":
     st.caption("How can I help you today?") 
     with st.expander("📎 Upload & 
 AI Tools"): 
-    uploaded_pdf = 
-st.file_uploader(
+    uploaded_pdf = st.file_uploader(
     "📄 Upload PDF",
     type=["pdf"],
     key="pdf_upload"
