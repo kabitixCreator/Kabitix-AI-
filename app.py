@@ -31,9 +31,10 @@ if "history" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "🏠 Home" 
 
-show_logo()
+show_logo() 
 
 if st.session_state.page == "🏠 Home":
+    show_logo()
     welcome_cards()
     st.stop() 
 
@@ -85,8 +86,9 @@ with st.sidebar.expander("📜 History", expanded=True):
 if st.sidebar.button("🗑️ Clear History"):
     st.session_state.history = []
     st.rerun() 
-st.title("🤖 Kabitix ")
-st.caption("How can I help you today?") 
+if st.session_state.page == "🤖 Chat":
+    st.title("🤖 Kabitix")
+    st.caption("How can I help you today?") 
 uploaded_pdf = st.file_uploader(
     "📄 Upload PDF",
     type=["pdf"],
