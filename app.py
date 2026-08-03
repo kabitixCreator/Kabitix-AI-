@@ -31,7 +31,6 @@ if "history" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "🏠 Home" 
 
-show_logo() 
 
 if st.session_state.page == "🏠 Home":
     show_logo()
