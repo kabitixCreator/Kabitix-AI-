@@ -15,7 +15,7 @@ from image_generator import generate_image
 from word_reader import read_word 
 from excel_reader import read_excel 
 st.set_page_config(
-    page_title="Kabitix AI",
+    page_title="Kabitix ",
     page_icon="🤖",
     layout="centered" 
 )
@@ -52,7 +52,7 @@ elif page == "⚙️ Settings":
     settings_page()
     st.stop()
 
-st.sidebar.title("🤖 Kabitix AI")
+st.sidebar.title("🤖 Kabitix ")
 import streamlit as st
 
 if "messages" not in st.session_state:
@@ -82,10 +82,8 @@ with st.sidebar.expander("📜 History", expanded=True):
 if st.sidebar.button("🗑️ Clear History"):
     st.session_state.history = []
     st.rerun() 
-st.title("🤖 Kabitix AI")
-st.caption("How can I help you today?")
-st.chat_input("💬 Ask anything...")
-st.divider() 
+st.title("🤖 Kabitix ")
+st.caption("How can I help you today?") 
 uploaded_pdf = st.file_uploader(
     "📄 Upload PDF",
     type=["pdf"],
