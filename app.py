@@ -29,10 +29,13 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 if "page" not in st.session_state:
-    st.session_state.page = "🤖 Chat"
+    st.session_state.page = "🏠 Home" 
 
 show_logo()
-welcome_cards()
+
+if st.session_state.page == "🏠 Home":
+    welcome_cards()
+    st.stop() 
 
 page = st.session_state.page
 
