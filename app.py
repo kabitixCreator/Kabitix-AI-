@@ -158,8 +158,7 @@ if st.session_state.get("show_image", False):
 )
 
 if st.button("🎨 Generate Image"):
-
-    with st.spinner("Generating image..."):
+      with st.spinner("Generating image..."):
         image = generate_image(image_prompt)
 
     if image:
