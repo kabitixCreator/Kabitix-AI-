@@ -88,7 +88,7 @@ if st.sidebar.button("🗑️ Clear History"):
 if st.session_state.page == "🤖 Chat":
     st.title("🤖 Kabitix")
     st.caption("How can I help you today?") 
-with st.expander("📎 Upload & AI Tools"): 
+with st.expander("📎 Tools"): 
    uploaded_pdf = st.file_uploader(
     "📄 Upload PDF",
     type=["pdf"],
@@ -150,7 +150,9 @@ if voice:
     prompt = speech_to_text("voice.wav")
 
     st.success(f"🎤 You said: {prompt}") 
-st.subheader("🎨 AI Image Generator")
+show_tools = st.toggle("📎 Show Tools") 
+if show_tools:
+    st.subheader("🎨 AI Image Generator") 
 
 image_prompt = st.text_input(
     "Describe the image you want to create"
