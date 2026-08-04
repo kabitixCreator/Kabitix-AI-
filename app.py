@@ -150,7 +150,6 @@ if voice:
     prompt = speech_to_text("voice.wav")
 
     st.success(f"🎤 You said: {prompt}") 
-show_image = st.toggle("🎨 Show Image Generator") 
     show_image = st.button("🎨 Image Generator") 
 if show_image: 
     image_prompt = st.text_input( 
